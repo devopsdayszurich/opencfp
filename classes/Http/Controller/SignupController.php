@@ -45,6 +45,7 @@ class SignupController extends BaseController
             'formAction' => $this->url('user_create'),
             'buttonInfo' => 'Create my speaker profile',
             'coc_link' => $this->app->config('application.coc_link'),
+            'sa_link' => $this->app->config('application.sa_link'),
         ]);
     }
 
@@ -64,6 +65,7 @@ class SignupController extends BaseController
             'agree_coc' => $req->get('agree_coc'),
             'buttonInfo' => 'Create my speaker profile',
             'coc_link' => $app->config('application.coc_link'),
+            'sa_link' => $app->config('application.sa_link'),
         ];
         $form_data['speaker_info'] = $req->get('speaker_info') ?: null;
         $form_data['speaker_bio'] = $req->get('speaker_bio') ?: null;
