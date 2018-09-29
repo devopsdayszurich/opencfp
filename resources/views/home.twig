@@ -29,7 +29,7 @@
     <div class="container mx-auto">
         <div class="flex justify-between items-center px-4 py-6">
             {% if site.event_location is defined and site.date_format is defined %}
-                <p>{{ site.title }} is from <span class="text-bold">{{ site.arrival|date(site.date_format, false) }}</span> to <span class="text-bold">{{ site.departure|date(site.date_format, false) }}</span> in {{ site.event_location }}</p>
+                <p>{{ site.title }} is from <span class="text-bold">{{ site.arrival|date(site.date_format, false) }}</span> to <span class="text-bold">{{ site.departure|date(site.date_format, false) }}</span> in <a href="https://www.devopsdays.org/events/2019-zurich/location/">{{ site.event_location }}</a></p>
             {%  else %}
                 <p>For More Information About The Conference</p>
             {% endif %}
