@@ -10,7 +10,7 @@
 
             <div>
                 {% if speaker.isAllowedToSee('company') and speaker.company %}<span class="mr-3"><i class="fa fa-building"></i> {{ speaker.company }}</span>{% endif %}
-                {% if speaker.isAllowedToSee('twitter') and speaker.twitter %}<span class="mr-3"><a class="hover:text-brand" target="_blank" href="https://twitter.com/{{ speaker.twitter }}" rel="noopener noreferrer"><i class="fa fa-twitter"></i> @{{ speaker.twitter }}</a></span>{% endif %}
+                {% if speaker.isAllowedToSee('twitter') and speaker.twitter %}<span class="mr-3"><a class="hover:text-brand" target="_blank" href="{{ speaker.twitterUrl }}" rel="noopener noreferrer"><i class="fa fa-twitter"></i> @{{ speaker.twitter }}</a></span>{% endif %}
                 {% if speaker.isAllowedToSee('email') and speaker.email %}<span class="mr-3"><i class="fa fa-envelope"></i> {{ speaker.email }}</span>{% endif %}
             </div>
         </div>
@@ -38,7 +38,7 @@
 
             {% if speaker.isAllowedToSee('info') and  speaker.info is not empty %}
                 <h3>Additional Notes</h3>
-                <p>{{ speaker.info }}</p>
+                <p>{{ speaker.info | striptags | markdown }}</p>
             {% endif %}
         </div>
     </div>

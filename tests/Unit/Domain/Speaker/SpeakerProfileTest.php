@@ -276,6 +276,164 @@ final class SpeakerProfileTest extends Framework\TestCase
     /**
      * @test
      */
+    public function getTwitterUrlThrowsNotAllowedExceptionIfPropertyIsHidden(): void
+    {
+        $hiddenProperties = [
+            'twitter',
+        ];
+
+        $speaker = $this->createUserMock();
+
+        $profile = new SpeakerProfile($speaker, $hiddenProperties);
+
+        $this->expectException(NotAllowedException::class);
+
+        $profile->getTwitterUrl();
+    }
+
+    /**
+     * @test
+     * @dataProvider providerEmptyValue
+     *
+     * @param null|string $value
+     */
+    public function getTwitterUrlReturnsEmptyStringWhenTwitterPropertyIsNotHiddenButEmpty($value): void
+    {
+        $speaker = $this->createUserMock([
+            'twitter' => $value,
+        ]);
+
+        $profile = new SpeakerProfile($speaker);
+
+        $this->assertSame('', $profile->getTwitterUrl());
+    }
+
+    public function providerEmptyValue(): array
+    {
+        $values = [
+            'null'         => null,
+            'string-empty' => '',
+            'string-blank' => '  ',
+        ];
+
+        return \array_map(function ($value) {
+            return [
+                $value,
+            ];
+        }, $values);
+    }
+
+    /**
+     * @test
+     */
+    public function getTwitterUrlReturnsTwitterUrlWhenTwitterPropertyIsNeitherHiddenNorEmpty(): void
+    {
+        $value = $this->faker()->userName;
+
+        $speaker = $this->createUserMock([
+            'twitter' => $value,
+        ]);
+
+        $profile = new SpeakerProfile($speaker);
+
+        $expected = 'https://twitter.com/' . $value;
+
+        $this->assertSame($expected, $profile->getTwitterUrl());
+    }
+
+    /**
+     * @test
+     */
+    public function getJoindInUsernameThrowsNotAllowedExceptionIfPropertyIsHidden(): void
+    {
+        $hiddenProperties = [
+            'joindin_username',
+        ];
+
+        $speaker = $this->createUserMock();
+
+        $profile = new SpeakerProfile($speaker, $hiddenProperties);
+
+        $this->expectException(NotAllowedException::class);
+
+        $profile->getJoindInUsername();
+    }
+
+    /**
+     * @test
+     */
+    public function getJoindInUsernameReturnsJoindInUsernameIfPropertyIsNotHidden(): void
+    {
+        $joindinUsername = $this->faker()->userName;
+
+        $speaker = $this->createUserMock([
+            'joindin_username' => $joindinUsername,
+        ]);
+
+        $profile = new SpeakerProfile($speaker);
+
+        $this->assertSame($joindinUsername, $profile->getJoindInUsername());
+    }
+
+    /**
+     * @test
+     * @dataProvider providerEmptyValue
+     *
+     * @param null|string $value
+     */
+    public function getJoindInUrlThrowsNotAllowedExceptionIfPropertyIsHidden(): void
+    {
+        $hiddenProperties = [
+            'joindin_username',
+        ];
+
+        $speaker = $this->createUserMock();
+
+        $profile = new SpeakerProfile($speaker, $hiddenProperties);
+
+        $this->expectException(NotAllowedException::class);
+
+        $profile->getJoindInUrl();
+    }
+
+    /**
+     * @test
+     * @dataProvider providerEmptyValue
+     *
+     * @param null|string $value
+     */
+    public function getJoindInUrlReturnsEmptyStringWhenJoindInUsernameIsNotHiddenButEmpty($value): void
+    {
+        $speaker = $this->createUserMock([
+            'joindin_username' => $value,
+        ]);
+
+        $profile = new SpeakerProfile($speaker);
+
+        $this->assertSame('', $profile->getJoindInUrl());
+    }
+
+    /**
+     * @test
+     */
+    public function getJoindInUrlReturnsJoindInUrlIfPropertyIsNotHidden(): void
+    {
+        $joindinUsername = $this->faker()->userName;
+
+        $speaker = $this->createUserMock([
+            'joindin_username' => $joindinUsername,
+        ]);
+
+        $expectedUrl = 'https://joind.in/user/' . $joindinUsername;
+
+        $profile = new SpeakerProfile($speaker);
+
+        $this->assertSame($expectedUrl, $profile->getJoindInUrl());
+    }
+
+    /**
+     * @test
+     */
     public function getUrlThrowsNotAllowedExceptionIfPropertyIsHidden()
     {
         $hiddenProperties = [
